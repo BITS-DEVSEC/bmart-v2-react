@@ -11,6 +11,7 @@ import "@mantine/notifications/styles.css";
 import "@mantine/dropzone/styles.css";
 import "@mantine/core/styles.css";
 
+
 const base: MantineColorsTuple = [
   "#fbefef",
   "#efdcdc",
