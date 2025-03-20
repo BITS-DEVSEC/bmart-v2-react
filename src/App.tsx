@@ -8,6 +8,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Root />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="*" element={<Root />} />
       </Routes>
     </BrowserRouter>
   );

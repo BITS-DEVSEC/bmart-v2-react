@@ -9,6 +9,7 @@ import {
   SimpleGrid,
   Text,
   Box,
+  Indicator,
 } from "@mantine/core";
 import Logo from "../../../assets/imageClear.png";
 import {
@@ -24,8 +25,9 @@ import { useState } from "react";
 
 export function RootShell({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
-  const isAuthenticated = false;
+  const isAuthenticated = true;
   const activePath = window.location.pathname;
+  console.log(activePath);
   const [triggerRoute, setTriggerRoute] = useState("");
   return (
     <AppShell header={{ height: 80 }} footer={{ height: 90 }}>
@@ -33,13 +35,15 @@ export function RootShell({ children }: { children: React.ReactNode }) {
         <Container size="480" h="100%">
           <Flex align="center" h="100%" justify="space-between">
             <Image w={100} h={35} src={Logo} alt="logo" />
-            <Flex gap="md">
+            <Flex gap={5}>
               <ActionIcon variant="transparent" size="lg">
                 <User2 />
               </ActionIcon>
-              <ActionIcon variant="transparent" size="lg">
-                <Bell />
-              </ActionIcon>
+              <Indicator color="red" offset={1}>
+                <ActionIcon variant="transparent" size="lg">
+                  <Bell />
+                </ActionIcon>
+              </Indicator>
             </Flex>
           </Flex>
         </Container>
@@ -61,7 +65,7 @@ export function RootShell({ children }: { children: React.ReactNode }) {
                   icon: (
                     <Store
                       color={activePath == "/" ? "white" : "black"}
-                      size={25}
+                      size={20}
                     />
                   ),
                   path: "/",
@@ -71,17 +75,17 @@ export function RootShell({ children }: { children: React.ReactNode }) {
                   icon: (
                     <ListTodo
                       color={activePath == "/request" ? "white" : "black"}
-                      size={25}
+                      size={20}
                     />
                   ),
-                  path: "/request",
+                  path: "/requests",
                 },
                 {
                   title: "Orders",
                   icon: (
                     <ReceiptIcon
                       color={activePath == "/orders" ? "white" : "black"}
-                      size={25}
+                      size={20}
                     />
                   ),
                   path: "/orders",
@@ -91,7 +95,7 @@ export function RootShell({ children }: { children: React.ReactNode }) {
                   icon: (
                     <ReceiptIcon
                       color={activePath == "/services" ? "white" : "black"}
-                      size={25}
+                      size={20}
                     />
                   ),
                   path: "/services",
@@ -101,7 +105,7 @@ export function RootShell({ children }: { children: React.ReactNode }) {
                   icon: (
                     <WalletMinimal
                       color={activePath == "/bank" ? "white" : "black"}
-                      size={25}
+                      size={20}
                     />
                   ),
                   path: "/bank",

@@ -1,6 +1,6 @@
-import { Star } from "lucide-react";
+import { Bookmark, ShoppingBag } from "lucide-react";
 import { Carousel } from "@mantine/carousel";
-import { Button, Card, Group, Image, Text } from "@mantine/core";
+import { ActionIcon, Card, Flex, Group, Image, Text } from "@mantine/core";
 import classes from "./productCards.module.css";
 
 const images = [
@@ -14,12 +14,12 @@ const images = [
 export default function ProductCards() {
   const slides = images.map((image) => (
     <Carousel.Slide key={image}>
-      <Image src={image} height={220} />
+      <Image src={image} height={180} />
     </Carousel.Slide>
   ));
 
   return (
-    <Card mb="md" radius="md" withBorder padding="xl">
+    <Card mb="md" radius="md" withBorder padding="md">
       <Card.Section>
         <Carousel
           withIndicators
@@ -34,20 +34,13 @@ export default function ProductCards() {
         </Carousel>
       </Card.Section>
 
-      <Group justify="space-between" mt="lg">
+      <Group justify="space-between" mt="sm">
         <Text fw={500} fz="lg">
           Forde, Norway
         </Text>
-
-        <Group gap={5}>
-          <Star />
-          <Text fz="xs" fw={500}>
-            4.78
-          </Text>
-        </Group>
       </Group>
 
-      <Text fz="sm" c="dimmed" mt="sm">
+      <Text lineClamp={2} fz="sm" c="dimmed" mt="sm">
         Relax, rejuvenate and unplug in this unique contemporary Birdbox. Feel
         close to nature in ultimate comfort. Enjoy the view of the epic mountain
         range of Blegja and the Førdefjord.
@@ -64,7 +57,14 @@ export default function ProductCards() {
           </Text>
         </div>
 
-        <Button radius="md">Book now</Button>
+        <Flex align="center" gap="xs">
+          <ActionIcon size="sm" variant="light">
+            <Bookmark size={15} />
+          </ActionIcon>
+          <ActionIcon size="sm" variant="light">
+            <ShoppingBag size={15} />
+          </ActionIcon>
+        </Flex>
       </Group>
     </Card>
   );
