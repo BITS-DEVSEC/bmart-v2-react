@@ -11,7 +11,10 @@
     "capacitor": "yarn build && npx cap sync"
   },
   "dependencies": {
+    "@capacitor-community/barcode-scanner": "^4.0.1",
+    "@capacitor-community/camera-preview": "^7.0.0",
     "@capacitor/android": "^7.1.0",
+    "@capacitor/app": "^7.0.0",
     "@capacitor/cli": "^7.1.0",
     "@capacitor/core": "^7.1.0",
     "@capacitor/ios": "^7.1.0",
@@ -21,12 +24,17 @@
     "@mantine/dropzone": "^7.17.2",
     "@mantine/hooks": "^7.17.2",
     "@mantine/notifications": "^7.17.2",
+    "@yudiel/react-qr-scanner": "^2.2.1",
     "dayjs": "^1.11.13",
     "embla-carousel-react": "^7.1.0",
+    "jsqr": "^1.4.0",
     "lucide-react": "^0.483.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router": "^7.4.0"
+    "react-qr-reader": "^3.0.0-beta-1",
+    "react-router": "^7.4.0",
+    "react-webcam": "^7.2.0",
+    "use-pull-to-refresh": "^2.4.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -43,5 +51,6 @@
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

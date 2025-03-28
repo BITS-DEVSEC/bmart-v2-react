@@ -9,142 +9,173 @@ import {
   SimpleGrid,
   Text,
   Box,
-  Indicator,
+  Menu,
+  LoadingOverlay,
 } from "@mantine/core";
 import Logo from "../../../assets/imageClear.png";
 import {
-  Bell,
-  ListTodo,
-  ReceiptIcon,
+  HelpCircle,
+  LucideLogOut,
+  MailQuestion,
+  Package2Icon,
+  PackageCheck,
+  ShoppingBag,
   Store,
   User2,
   WalletMinimal,
 } from "lucide-react";
-import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useNavigate, useLocation } from "react-router";
+import { useEffect, useState } from "react";
+import { BackButtonHandler } from "../../actions/backButton";
+import { usePullToRefresh } from "use-pull-to-refresh";
 
-export function RootShell({ children }: { children: React.ReactNode }) {
+const MAXIMUM_PULL_LENGTH = 380;
+const REFRESH_THRESHOLD = 100;
+
+export function RootShell({
+  children,
+  noFoot,
+}: {
+  children: React.ReactNode;
+  noFoot?: boolean;
+}) {
   const navigate = useNavigate();
+  const location = useLocation();
   const isAuthenticated = true;
-  const activePath = window.location.pathname;
-  console.log(activePath);
+  const [activePath, setActivePath] = useState("/");
   const [triggerRoute, setTriggerRoute] = useState("");
+
+  const reload = () => {
+    setTimeout(() => {
+      console.log("hh");
+    }, 120);
+  };
+
+  const { isRefreshing } = usePullToRefresh({
+    onRefresh: reload,
+    maximumPullLength: MAXIMUM_PULL_LENGTH,
+    refreshThreshold: REFRESH_THRESHOLD,
+  });
+
+  useEffect(() => {
+    setActivePath(location.pathname);
+  }, [location]);
+
   return (
     <AppShell header={{ height: 80 }} footer={{ height: 90 }}>
+      <BackButtonHandler />
       <AppShell.Header withBorder={false}>
         <Container size="480" h="100%">
           <Flex align="center" h="100%" justify="space-between">
             <Image w={100} h={35} src={Logo} alt="logo" />
-            <Flex gap={5}>
-              <ActionIcon variant="transparent" size="lg">
-                <User2 />
-              </ActionIcon>
-              <Indicator color="red" offset={1}>
+            <Menu shadow="md" width={150}>
+              <Menu.Target>
                 <ActionIcon variant="transparent" size="lg">
-                  <Bell />
+                  <User2 />
                 </ActionIcon>
-              </Indicator>
-            </Flex>
+              </Menu.Target>
+
+              <Menu.Dropdown>
+                <Menu.Item
+                  onClick={() => {
+                    navigate("/auth");
+                  }}
+                  rightSection={<User2 size={16} />}
+                >
+                  Profile
+                </Menu.Item>
+                <Menu.Item rightSection={<MailQuestion size={16} />}>
+                  Support
+                </Menu.Item>
+                <Menu.Item rightSection={<HelpCircle size={16} />}>
+                  FAQ
+                </Menu.Item>
+                <Menu.Item
+                  color="red"
+                  rightSection={<LucideLogOut size={16} />}
+                >
+                  Logout
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
           </Flex>
         </Container>
       </AppShell.Header>
 
       <AppShell.Main>
+        <LoadingOverlay visible={isRefreshing} />
         <Container bg="white" size="480">
           {children}
         </Container>
       </AppShell.Main>
 
-      <AppShell.Footer style={{ border: 0 }}>
-        <Container mt="xs" size={480}>
-          <Card p={7} py={7} radius="md" withBorder>
-            <SimpleGrid spacing="xs" verticalSpacing="xs" cols={5}>
-              {[
-                {
-                  title: "Market",
-                  icon: (
-                    <Store
-                      color={activePath == "/" ? "white" : "black"}
-                      size={20}
-                    />
-                  ),
-                  path: "/",
-                },
-                {
-                  title: "Requests",
-                  icon: (
-                    <ListTodo
-                      color={activePath == "/request" ? "white" : "black"}
-                      size={20}
-                    />
-                  ),
-                  path: "/requests",
-                },
-                {
-                  title: "Orders",
-                  icon: (
-                    <ReceiptIcon
-                      color={activePath == "/orders" ? "white" : "black"}
-                      size={20}
-                    />
-                  ),
-                  path: "/orders",
-                },
-                {
-                  title: "Services",
-                  icon: (
-                    <ReceiptIcon
-                      color={activePath == "/services" ? "white" : "black"}
-                      size={20}
-                    />
-                  ),
-                  path: "/services",
-                },
-                {
-                  title: "Bank",
-                  icon: (
-                    <WalletMinimal
-                      color={activePath == "/bank" ? "white" : "black"}
-                      size={20}
-                    />
-                  ),
-                  path: "/bank",
-                },
-              ].map((opt) => (
-                <Center key={opt.title}>
-                  <Box
-                    variant="subtle"
-                    onClick={() => {
-                      const paths = ["/store", "/request", "/bank", "/orders"];
-                      if (paths.includes(opt.path) && !isAuthenticated) {
-                        setTriggerRoute(opt.path);
-                        console.log(triggerRoute);
-
-                        return;
-                      }
-                      navigate(opt.path);
-                    }}
-                    bg={activePath == opt.path ? "primary" : "dark-1"}
-                    style={{ height: 50, width: 56, borderRadius: 5 }}
-                  >
-                    <Flex direction="column">
-                      <Center h={38}>{opt.icon}</Center>
-                      <Text
-                        ta="center"
-                        c={activePath == opt.path ? "white" : "black"}
-                        style={{ fontSize: 10 }}
-                        mt={-6}
+      {!noFoot && (
+        <AppShell.Footer style={{ border: 0 }}>
+          <Container mt="xs" size={480}>
+            <Card p={7} py={7} radius="md" withBorder>
+              <SimpleGrid spacing="xs" verticalSpacing="xs" cols={5}>
+                {[
+                  { title: "Market", icon: ShoppingBag, path: "/" },
+                  { title: "Requests", icon: PackageCheck, path: "/requests" },
+                  { title: "Orders", icon: Package2Icon, path: "/orders" },
+                  { title: "Stores", icon: Store, path: "/stores" },
+                  { title: "Bank", icon: WalletMinimal, path: "/bank" },
+                ].map((opt) => {
+                  const isActive = activePath === opt.path;
+                  return (
+                    <Center key={opt.title}>
+                      <Box
+                        onClick={() => {
+                          if (
+                            [
+                              "/store",
+                              "/request",
+                              "/bank",
+                              "/orders",
+                              "/wholesalers",
+                            ].includes(opt.path) &&
+                            !isAuthenticated
+                          ) {
+                            setTriggerRoute(opt.path);
+                            return;
+                          }
+                          navigate(opt.path);
+                          console.log(triggerRoute);
+                        }}
+                        style={{
+                          height: 50,
+                          width: 56,
+                          borderRadius: 5,
+                          backgroundColor: isActive
+                            ? "var(--mantine-color-primary-9)"
+                            : "#FFFFFF",
+                        }}
                       >
-                        {opt.title}
-                      </Text>
-                    </Flex>
-                  </Box>
-                </Center>
-              ))}
-            </SimpleGrid>
-          </Card>
-        </Container>
-      </AppShell.Footer>
+                        <Flex direction="column">
+                          <Center h={38}>
+                            <opt.icon
+                              color={isActive ? "white" : "black"}
+                              size={20}
+                            />
+                          </Center>
+                          <Text
+                            ta="center"
+                            c={isActive ? "white" : "black"}
+                            style={{ fontSize: 10 }}
+                            mt={-6}
+                          >
+                            {opt.title}
+                          </Text>
+                        </Flex>
+                      </Box>
+                    </Center>
+                  );
+                })}
+              </SimpleGrid>
+            </Card>
+          </Container>
+        </AppShell.Footer>
+      )}
     </AppShell>
   );
 }
