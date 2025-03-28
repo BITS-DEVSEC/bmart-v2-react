@@ -1,4 +1,4 @@
-import { Container, Box, Flex, Title, Group } from "@mantine/core";
+import { Container, Box, Flex, Title } from "@mantine/core";
 import { ChevronsRightIcon, Globe, Hand } from "lucide-react";
 import CustomButton from "../../components/ui/button";
 import { useNavigate } from "react-router";
@@ -34,12 +34,12 @@ export default function Auth() {
       <Container mt="lg">
         <Flex gap={20} direction="column">
           <Box>
-            <Group grow justify="space-between" align="center" gap={20}>
+            <Flex justify="space-between" align="center" gap={20}>
               <Title order={4}>Hey There, Welcome to BMart</Title>
               <Flex justify="flex-end">
                 <Hand size={40} />
               </Flex>
-            </Group>
+            </Flex>
             <ContainedInputs
               mt="sm"
               label="Enter you FAYDA (FAN) Identification Number"

@@ -1,5 +1,6 @@
 import { DatePickerInput, DateValue } from "@mantine/dates";
 import classes from "./style.module.css";
+import { inputStyles } from "./inputStyles";
 
 export function ContainedDates({
   label,
@@ -39,7 +40,7 @@ export function ContainedDates({
         ml={ml}
         label={label}
         placeholder={placeholder}
-        classNames={classes}
+        styles={inputStyles}
       />
     </>
   );

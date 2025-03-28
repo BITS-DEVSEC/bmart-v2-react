@@ -1,5 +1,6 @@
 import { Textarea } from "@mantine/core";
 import classes from "./style.module.css";
+import { inputStyles } from "./inputStyles";
 
 export function ContainedInputAreas({
   label,
@@ -43,7 +44,7 @@ export function ContainedInputAreas({
         ml={ml}
         label={label}
         placeholder={placeholder}
-        classNames={classes}
+        styles={inputStyles}
       />
     </>
   );

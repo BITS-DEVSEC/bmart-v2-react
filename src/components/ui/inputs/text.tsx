@@ -1,5 +1,5 @@
 import { TextInput } from "@mantine/core";
-import classes from "./style.module.css";
+import { inputStyles } from "./inputStyles";
 
 export function ContainedInputs({
   label,
@@ -37,7 +37,7 @@ export function ContainedInputs({
         ml={ml}
         label={label}
         placeholder={placeholder}
-        classNames={classes}
+        styles={inputStyles}
       />
     </>
   );

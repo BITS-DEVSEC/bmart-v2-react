@@ -1,5 +1,6 @@
 import { Select } from "@mantine/core";
 import classes from "./style.module.css";
+import { inputStyles } from "./inputStyles";
 
 export function ContainedSelect({
   label,
@@ -42,7 +43,7 @@ export function ContainedSelect({
         data={data || []}
         placeholder={placeholder}
         label={label}
-        classNames={classes}
+        styles={inputStyles}
       />
     </>
   );

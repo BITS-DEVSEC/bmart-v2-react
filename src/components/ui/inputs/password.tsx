@@ -1,5 +1,5 @@
 import { TextInput } from "@mantine/core";
-import classes from "./style.module.css";
+import { inputStyles } from "./inputStyles";
 
 export function ContainedPassword({
   label,
@@ -38,7 +38,7 @@ export function ContainedPassword({
         type="password"
         label={label}
         placeholder={placeholder}
-        classNames={classes}
+        styles={inputStyles}
       />
     </>
   );
