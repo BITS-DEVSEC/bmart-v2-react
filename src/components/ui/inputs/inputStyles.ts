@@ -1,8 +1,6 @@
-import { CSSProperties } from 'react';
-
 export const inputStyles = {
     root: {
-      position: "relative" as const,
+      position: "relative",
     },
     input: {
       height: 54,
@@ -11,11 +9,11 @@ export const inputStyles = {
       paddingTop: 18,
     },
     label: {
-      position: "absolute" as const,
-      pointerEvents: "none" as const,
+      position: "absolute",
+      pointerEvents: "none",
       fontSize: "0.75rem",
       paddingLeft: 18,
       paddingTop: 10,
       zIndex: 1,
     },
-  } satisfies Partial<Record<string, CSSProperties>>;
+  } as const;

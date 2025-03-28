@@ -1,12 +1,10 @@
 import { Container, Box, Flex, Title, Group, Text } from "@mantine/core";
-import { ChevronsLeftIcon, ChevronsRightIcon, IdCardIcon } from "lucide-react";
-import { ContainedInputs } from "../../components/ui/inputs/text";
+import { CheckIcon, ChevronsLeftIcon, IdCardIcon } from "lucide-react";
 import CustomButton from "../../components/ui/button";
 import { useNavigate } from "react-router";
 import { ContainedSelect } from "../../components/ui/inputs/select";
-import { ContainedDates } from "../../components/ui/inputs/date";
 
-export default function PersonalDetails() {
+export default function AddressDetails() {
   const navigate = useNavigate();
 
   return (
@@ -40,7 +38,7 @@ export default function PersonalDetails() {
               <Flex direction="column">
                 <Title order={4}>Your FAYDA Information</Title>
                 <Text size="xs" c="dimmed">
-                  PERSONAL DETAILS
+                  ADDRESS DETAILS
                 </Text>
               </Flex>
               <Flex justify="flex-end">
@@ -48,10 +46,10 @@ export default function PersonalDetails() {
               </Flex>
             </Group>
             {[
-              { title: "Full Name", placeholder: "Enter your full name" },
-              { title: "Phone Number", placeholder: "Enter your phone number" },
+              { title: "Country", placeholder: "Country" },
+              { title: "City", placeholder: "City" },
             ].map((item, index) => (
-              <ContainedInputs
+              <ContainedSelect
                 mt="xs"
                 key={index}
                 label={item.title}
@@ -60,10 +58,10 @@ export default function PersonalDetails() {
             ))}
             <Group grow justify="space-between">
               {[
-                { title: "Gender", placeholder: "Gender" },
+                { title: "SubCity", placeholder: "SubCity" },
                 {
-                  title: "Nationality",
-                  placeholder: "Nationality",
+                  title: "Woreda",
+                  placeholder: "Woreda",
                 },
               ].map((item, index) => (
                 <ContainedSelect
@@ -74,22 +72,17 @@ export default function PersonalDetails() {
                 />
               ))}
             </Group>
-            <ContainedDates
-              mt="xs"
-              label="Date of Birth"
-              placeholder="Enter your date of birth"
-            />
           </Box>
           <Flex direction="column" gap={10}>
             <CustomButton
-              action={() => navigate("/auth/address-details")}
-              icon={<ChevronsRightIcon size={20} />}
+              action={() => navigate("/auth/credentials")}
+              icon={<CheckIcon size={20} />}
               ltr
               label="Continue"
             />
             <CustomButton
               altColor
-              action={() => navigate("/auth")}
+              action={() => navigate("/auth/personal-details")}
               icon={<ChevronsLeftIcon size={20} />}
               rtl
               label="Back"

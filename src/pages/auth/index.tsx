@@ -1,5 +1,5 @@
 import { Container, Box, Flex, Title } from "@mantine/core";
-import { ChevronsRightIcon, Globe, Hand } from "lucide-react";
+import { ChevronsRightIcon, Globe } from "lucide-react";
 import CustomButton from "../../components/ui/button";
 import { useNavigate } from "react-router";
 import { ContainedInputs } from "../../components/ui/inputs/text";
@@ -9,11 +9,11 @@ export default function Auth() {
 
   return (
     <Box>
-      <Box miw={"100%"} mih={500} bg="primary">
+      <Box miw={"100%"} mih={"50vh"} bg="primary">
         <Box
           bg="primary.8"
           style={{
-            height: 500,
+            height: "50vh",
             width: 30,
             position: "absolute",
             top: 0,
@@ -23,7 +23,7 @@ export default function Auth() {
         <Box
           bg="primary.8"
           style={{
-            height: 500,
+            height: "50vh",
             width: 30,
             position: "absolute",
             top: 0,
@@ -36,9 +36,6 @@ export default function Auth() {
           <Box>
             <Flex justify="space-between" align="center" gap={20}>
               <Title order={4}>Hey There, Welcome to BMart</Title>
-              <Flex justify="flex-end">
-                <Hand size={40} />
-              </Flex>
             </Flex>
             <ContainedInputs
               mt="sm"

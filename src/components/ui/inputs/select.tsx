@@ -1,5 +1,4 @@
 import { Select } from "@mantine/core";
-import classes from "./style.module.css";
 import { inputStyles } from "./inputStyles";
 
 export function ContainedSelect({
