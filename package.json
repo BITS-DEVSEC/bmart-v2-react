@@ -11,8 +11,6 @@
     "capacitor": "yarn build && npx cap sync"
   },
   "dependencies": {
-    "@capacitor-community/barcode-scanner": "^4.0.1",
-    "@capacitor-community/camera-preview": "^7.0.0",
     "@capacitor/android": "^7.1.0",
     "@capacitor/app": "^7.0.0",
     "@capacitor/cli": "^7.1.0",
@@ -31,7 +29,6 @@
     "lucide-react": "^0.483.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-qr-reader": "^3.0.0-beta-1",
     "react-router": "^7.4.0",
     "react-webcam": "^7.2.0",
     "use-pull-to-refresh": "^2.4.1"
