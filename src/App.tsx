@@ -9,6 +9,7 @@ import BankPage from "./pages/bank";
 import Login from "./pages/auth/login";
 import PinPass from "./pages/auth/pinPass";
 import Credentials from "./pages/auth/credentials";
+import Requests from "./pages/requests";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/auth/pin-pass" element={<PinPass />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/bank" element={<BankPage />} />
+        <Route path="/requests" element={<Requests />} />
         <Route path="*" element={<Root />} />
       </Routes>
     </BrowserRouter>

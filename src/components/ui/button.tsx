@@ -11,6 +11,7 @@ export default function CustomButton({
   custColor,
   props,
   loading,
+  altSize
 }: {
   render?: React.ReactNode;
   label: string;
@@ -22,6 +23,7 @@ export default function CustomButton({
   custColor?: string;
   props?: { mt?: string; mb?: string };
   loading?: boolean;
+  altSize?: boolean;
 }) {
   return (
     <Button
@@ -39,7 +41,7 @@ export default function CustomButton({
         render
       ) : (
         <Flex
-          style={{ width: "80vw" }}
+          style={{ width: altSize ? "70vw" : "80vw" }}
           align="center"
           justify={!ltr && !rtl ? "center" : "space-between"}
           direction={ltr ? "row" : rtl ? "row-reverse" : "row"}
