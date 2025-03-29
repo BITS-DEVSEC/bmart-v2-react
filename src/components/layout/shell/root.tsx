@@ -20,7 +20,7 @@ import {
   Package2Icon,
   PackageCheck,
   ShoppingBag,
-  Store,
+  Truck,
   User2,
   WalletMinimal,
 } from "lucide-react";
@@ -118,7 +118,7 @@ export function RootShell({
                   { title: "Market", icon: ShoppingBag, path: "/" },
                   { title: "Requests", icon: PackageCheck, path: "/requests" },
                   { title: "Orders", icon: Package2Icon, path: "/orders" },
-                  { title: "Stores", icon: Store, path: "/stores" },
+                  { title: "Deliveries", icon: Truck, path: "/deliveries" },
                   { title: "Bank", icon: WalletMinimal, path: "/bank" },
                 ].map((opt) => {
                   const isActive = activePath === opt.path;
@@ -128,8 +128,8 @@ export function RootShell({
                         onClick={() => {
                           if (
                             [
-                              "/store",
-                              "/request",
+                              "/deliveries",
+                              "/requests",
                               "/bank",
                               "/orders",
                               "/wholesalers",
