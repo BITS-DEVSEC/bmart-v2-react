@@ -9,9 +9,7 @@ import {
 } from "@mantine/core";
 import classes from "./cc.module.css";
 import {
-  AtSign,
   MinusCircle,
-  PhoneCall,
   PlusCircle,
   Trash2,
 } from "lucide-react";
@@ -21,32 +19,23 @@ export default function CartCards() {
     <Card p="xs" withBorder>
       <Group wrap="nowrap">
         <Avatar
-          src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png"
+          src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80"
           size={94}
           radius="sm"
         />
         <div>
-          <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
-            Software engineer
-          </Text>
-
           <Text fz="lg" fw={500} className={classes.name}>
-            Robert Glassbreaker
+            Forde, Norway
           </Text>
 
           <Group wrap="nowrap" gap={10} mt={3}>
-            <AtSign size={16} className={classes.icon} />
-            <Text fz="xs" c="dimmed">
-              robert@glassbreaker.io
+            <Text lineClamp={2} fz="xs" c="dimmed">
+            Relax, rejuvenate and unplug in this unique contemporary Birdbox. Feel
+          close to nature in ultimate comfort. Enjoy the view of the epic
+          mountain range of Blegja and the Førdefjord.
             </Text>
           </Group>
-
-          <Group wrap="nowrap" gap={10} mt={5}>
-            <PhoneCall size={16} className={classes.icon} />
-            <Text fz="xs" c="dimmed">
-              +11 (876) 890 56 23
-            </Text>
-          </Group>
+          <Text>347 ETB</Text>
         </div>
       </Group>
       <Card mt="xs" withBorder p="xs">

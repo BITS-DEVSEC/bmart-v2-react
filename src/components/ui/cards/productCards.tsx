@@ -78,11 +78,7 @@ export default function ProductCards() {
         <Group justify="space-between" mt="md">
           <div>
             <Text fz="xl" span fw={500} className={classes.price}>
-              397$
-            </Text>
-            <Text span fz="sm" c="dimmed">
-              {" "}
-              / night
+              397 ETB
             </Text>
           </div>
 

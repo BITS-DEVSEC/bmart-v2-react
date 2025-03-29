@@ -14,8 +14,10 @@ import {
 import { useDebouncedValue } from "@mantine/hooks";
 import { Trash2, LockKeyhole, Delete } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function PinPass() {
+  const navigate = useNavigate()
   const [pin, setPin] = useState<string>("");
   const [passing, setPassing] = useState<boolean>(false)
 
@@ -41,6 +43,7 @@ export default function PinPass() {
       setTimeout(() => {
         setPassing(false);
         setPin("");
+        navigate("/")
       }, 1000);
     }
   }, [debouncedPin]);

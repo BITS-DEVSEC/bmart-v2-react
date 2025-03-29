@@ -10,7 +10,7 @@ export default function Cart() {
       <Card mb="sm" p="xs" withBorder>
         <Flex justify="space-between" align="center">
           <Title order={5}>Total Price</Title>
-          <Text c="dimmed">123 ETB</Text>
+          <Text c="dimmed">{347 * 7}.00 ETB</Text>
         </Flex>
       </Card>
       <ScrollArea type="never" h={"calc(100vh - 282px)"}>
