@@ -5,8 +5,13 @@ import {
   Table,
   Title,
   Divider,
+  Modal,
 } from "@mantine/core";
-import { PackageCheck } from "lucide-react";
+import { Check, PackageCheck, Truck } from "lucide-react";
+import CustomButton from "../../components/ui/button";
+import { ContainedSelect } from "../../components/ui/inputs/select";
+import { useDisclosure } from "@mantine/hooks";
+import { ContainedDates } from "../../components/ui/inputs/date";
 
 const charactersList = [
   {
@@ -74,7 +79,8 @@ function AccordionLabel({ label, description }: AccordionLabelProps) {
   );
 }
 
-export function PublishedRequests() {
+export function Outgoing() {
+  const [opened, { toggle }] = useDisclosure(false);
   const items = charactersList.map((item) => (
     <Accordion.Item value={item.id} key={item.label}>
       <Accordion.Control>
@@ -85,7 +91,7 @@ export function PublishedRequests() {
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Item</Table.Th>
-              <Table.Th ta="right">Quantity</Table.Th>
+              <Table.Th ta="right">Price</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>{rows}</Table.Tbody>
@@ -98,13 +104,51 @@ export function PublishedRequests() {
           </Text>
         </Flex>
         <Divider my="xs" />
+        <Flex direction="column" gap={10}>
+          <CustomButton action={toggle} altSize label="Request Delivery" ltr icon={<Truck />} />
+        </Flex>
       </Accordion.Panel>
     </Accordion.Item>
   ));
 
   return (
-    <Accordion chevronPosition="right" variant="separated">
-      {items}
-    </Accordion>
+    <>
+      <Modal
+        title={<Title order={5}>Delivery Request</Title>}
+        opened={opened}
+        onClose={toggle}
+      >
+        <ContainedSelect
+          mt="xs"
+          label="Pickup Point"
+          placeholder="Select pickup point"
+        />
+        <ContainedSelect
+          mt="xs"
+          label="Drop Off Point"
+          placeholder="Select drop off point"
+        />
+        <ContainedDates
+          mt="xs"
+          label="Expected Pickup Date"
+          placeholder="Select expected pickup date"
+        />
+        <ContainedDates
+          mt="xs"
+          label="Expected Drop Off Date"
+          placeholder="Select expected dropoff date"
+        />
+        <CustomButton
+          action={toggle}
+          props={{ mt: "xs" }}
+          label="Publish Request"
+          ltr
+          icon={<Check size={18} />}
+        />
+      </Modal>
+      <Accordion chevronPosition="right" variant="separated">
+        {items}
+      </Accordion>
+    </>
   );
 }

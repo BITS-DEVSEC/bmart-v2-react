@@ -10,6 +10,8 @@ import Login from "./pages/auth/login";
 import PinPass from "./pages/auth/pinPass";
 import Credentials from "./pages/auth/credentials";
 import Requests from "./pages/requests";
+import Orders from "./pages/orders";
+import Deliveries from "./pages/dorders";
 
 export default function App() {
   return (
@@ -26,7 +28,9 @@ export default function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/bank" element={<BankPage />} />
         <Route path="/requests" element={<Requests />} />
-        <Route path="*" element={<Root />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/deliveries" element={<Deliveries />} />
+        <Route path="/" element={<Root />} />
       </Routes>
     </BrowserRouter>
   );

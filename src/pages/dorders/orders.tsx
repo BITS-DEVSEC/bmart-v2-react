@@ -6,7 +6,8 @@ import {
   Title,
   Divider,
 } from "@mantine/core";
-import { PackageCheck } from "lucide-react";
+import { PackageCheck, Truck } from "lucide-react";
+import CustomButton from "../../components/ui/button";
 
 const charactersList = [
   {
@@ -74,7 +75,7 @@ function AccordionLabel({ label, description }: AccordionLabelProps) {
   );
 }
 
-export function PublishedRequests() {
+export function DOutgoing() {
   const items = charactersList.map((item) => (
     <Accordion.Item value={item.id} key={item.label}>
       <Accordion.Control>
@@ -85,7 +86,7 @@ export function PublishedRequests() {
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Item</Table.Th>
-              <Table.Th ta="right">Quantity</Table.Th>
+              <Table.Th ta="right">Price</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>{rows}</Table.Tbody>
@@ -97,7 +98,16 @@ export function PublishedRequests() {
             {products.reduce((total, product) => total + product.quantity, 0)}{" "}
           </Text>
         </Flex>
+        <Flex px="xs" style={{ width: "100%" }} justify="space-between">
+          <Title order={5}>Delivery Fee</Title>
+          <Text>
+            654.00 ETB
+          </Text>
+        </Flex>
         <Divider my="xs" />
+        <Flex direction="column" gap={10}>
+          <CustomButton altSize label="Pay" ltr icon={<Truck  />} />
+        </Flex>
       </Accordion.Panel>
     </Accordion.Item>
   ));

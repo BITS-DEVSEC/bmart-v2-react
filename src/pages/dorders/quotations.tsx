@@ -1,13 +1,6 @@
-import {
-  Text,
-  Accordion,
-  Flex,
-  Table,
-  Title,
-  Divider,
-} from "@mantine/core";
-import { PackageCheck } from "lucide-react";
-
+import { Text, Accordion, Flex, Table, Title, Divider } from "@mantine/core";
+import { Check, PackageCheck, X } from "lucide-react";
+import CustomButton from "../../components/ui/button";
 const charactersList = [
   {
     id: "bender",
@@ -74,7 +67,7 @@ function AccordionLabel({ label, description }: AccordionLabelProps) {
   );
 }
 
-export function PublishedRequests() {
+export function DQuotations() {
   const items = charactersList.map((item) => (
     <Accordion.Item value={item.id} key={item.label}>
       <Accordion.Control>
@@ -94,17 +87,29 @@ export function PublishedRequests() {
         <Flex px="xs" style={{ width: "100%" }} justify="space-between">
           <Title order={5}>Total</Title>
           <Text>
-            {products.reduce((total, product) => total + product.quantity, 0)}{" "}
+            {products.reduce((total, product) => total + product.quantity, 0)}
+          </Text>
+        </Flex>
+        <Flex px="xs" style={{ width: "100%" }} justify="space-between">
+          <Title order={5}>Delivery Fee</Title>
+          <Text>
+            654.00 ETB
           </Text>
         </Flex>
         <Divider my="xs" />
+        <Flex direction="column" gap={10}>
+          <CustomButton altSize label="Accept" ltr icon={<Check />} />
+          <CustomButton altSize altColor label="Reject" ltr icon={<X />} />
+        </Flex>
       </Accordion.Panel>
     </Accordion.Item>
   ));
 
   return (
-    <Accordion chevronPosition="right" variant="separated">
-      {items}
-    </Accordion>
+    <>
+      <Accordion chevronPosition="right" variant="separated">
+        {items}
+      </Accordion>
+    </>
   );
 }

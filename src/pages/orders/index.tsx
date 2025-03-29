@@ -1,26 +1,26 @@
 import { useState } from "react";
 import { ScrollArea, Tabs } from "@mantine/core";
 import { RootShell } from "../../components/layout/shell/root";
-import { PublishedRequests } from "./publishedRequests";
-import { RequestQuotations } from "./requestQuotations";
+import { Incoming } from "./orderIn";
+import { Outgoing } from "./orderOut";
 
-export default function Requests() {
+export default function Orders() {
   const [activeTab, setActiveTab] = useState<string | null>("pr");
 
   return (
     <RootShell>
       <Tabs variant="outline" value={activeTab} onChange={setActiveTab}>
         <Tabs.List grow>
-          <Tabs.Tab value="pr">Published Requests</Tabs.Tab>
-          <Tabs.Tab value="rq">Request Quotations</Tabs.Tab>
+          <Tabs.Tab value="pr">Incoming Orders</Tabs.Tab>
+          <Tabs.Tab value="rq">Outgoing Orders</Tabs.Tab>
         </Tabs.List>
 
         <ScrollArea h="calc(100vh - 216px)" mt="xs" type="never">
           <Tabs.Panel value="pr">
-            <PublishedRequests />
+            <Incoming />
           </Tabs.Panel>
           <Tabs.Panel value="rq">
-            <RequestQuotations />
+            <Outgoing />
           </Tabs.Panel>
         </ScrollArea>
       </Tabs>

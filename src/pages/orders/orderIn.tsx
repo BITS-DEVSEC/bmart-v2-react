@@ -5,8 +5,14 @@ import {
   Table,
   Title,
   Divider,
+  Modal,
 } from "@mantine/core";
-import { PackageCheck } from "lucide-react";
+import { Check, PackageCheck } from "lucide-react";
+import CustomButton from "../../components/ui/button";
+import { useDisclosure } from "@mantine/hooks";
+import { ContainedSelect } from "../../components/ui/inputs/select";
+import { useState } from "react";
+import { ContainedInputs } from "../../components/ui/inputs/text";
 
 const charactersList = [
   {
@@ -44,17 +50,17 @@ interface AccordionLabelProps {
 }
 
 const products = [
-  { name: "Carbon Water Bottle", quantity: 3 },
-  { name: "Nitrogen Infused Face Mask", quantity: 2 },
-  { name: "Yttrium LED Desk Lamp", quantity: 1 },
-  { name: "Barium Home Cleaning Kit", quantity: 4 },
-  { name: "Cerium Polishing Cloth", quantity: 5 },
+  { name: "Carbon Water Bottle", price: 29.99 },
+  { name: "Nitrogen Infused Face Mask", price: 49.99 },
+  { name: "Yttrium LED Desk Lamp", price: 89.99 },
+  { name: "Barium Home Cleaning Kit", price: 19.99 },
+  { name: "Cerium Polishing Cloth", price: 14.99 },
 ];
 
 const rows = products.map((element) => (
   <Table.Tr key={element.name}>
     <Table.Td>{element.name}</Table.Td>
-    <Table.Td ta="right">{element.quantity}</Table.Td>
+    <Table.Td ta="right">{element.price} ETB</Table.Td>
   </Table.Tr>
 ));
 
@@ -74,7 +80,10 @@ function AccordionLabel({ label, description }: AccordionLabelProps) {
   );
 }
 
-export function PublishedRequests() {
+export function Incoming() {
+  const [opened, { toggle }] = useDisclosure(false);
+  const [type, setType] = useState<string | null>("");
+
   const items = charactersList.map((item) => (
     <Accordion.Item value={item.id} key={item.label}>
       <Accordion.Control>
@@ -85,7 +94,7 @@ export function PublishedRequests() {
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Item</Table.Th>
-              <Table.Th ta="right">Quantity</Table.Th>
+              <Table.Th ta="right">Price</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>{rows}</Table.Tbody>
@@ -94,17 +103,54 @@ export function PublishedRequests() {
         <Flex px="xs" style={{ width: "100%" }} justify="space-between">
           <Title order={5}>Total</Title>
           <Text>
-            {products.reduce((total, product) => total + product.quantity, 0)}{" "}
+            {products
+              .reduce((total, product) => total + product.price, 0)
+              ?.toFixed(2)}{" "}
+            ETB
           </Text>
         </Flex>
         <Divider my="xs" />
+        <Flex direction="column" gap={10}>
+          <CustomButton
+            action={toggle}
+            altSize
+            label="Pay"
+            ltr
+            icon={<Check />}
+          />
+        </Flex>
       </Accordion.Panel>
     </Accordion.Item>
   ));
 
   return (
-    <Accordion chevronPosition="right" variant="separated">
-      {items}
-    </Accordion>
+    <>
+      <Modal
+        title={<Title order={5}>PAY</Title>}
+        opened={opened}
+        onClose={toggle}
+      >
+        <ContainedSelect
+          value={type || ""}
+          setValue={setType}
+          label="Payment Type"
+          placeholder="Select payment type"
+          data={["Full", "Partial"]}
+        />
+        {type == "Partial" && (
+          <ContainedInputs mt="xs" label="Amount" placeholder="Enter amount" />
+        )}
+        <CustomButton
+          action={toggle}
+          props={{ mt: "xs" }}
+          label="Complete"
+          ltr
+          icon={<Check size={18} />}
+        />
+      </Modal>
+      <Accordion chevronPosition="right" variant="separated">
+        {items}
+      </Accordion>
+    </>
   );
 }
