@@ -10,12 +10,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  setup:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -25,57 +22,68 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Upload node_modules artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: node_modules
-          path: node_modules
-
-  lint:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Download node_modules artifact
         uses: actions/download-artifact@v4
         with:
           name: node_modules
+
       - name: Lint
         run: yarn lint
 
   build:
-    needs: lint
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Download node_modules artifact
         uses: actions/download-artifact@v4
         with:
           name: node_modules
+
       - name: Build
         run: yarn build
 
   sync:
-    needs: build
+    needs: 
+      - lint
+      - build
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Download node_modules artifact
         uses: actions/download-artifact@v4
         with:
           name: node_modules
+
       - name: Sync
         run: yarn cap sync
 
   apk:
-    needs: 
-      - setup
-      - lint
-      - build
-      - sync
+    needs: sync
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -86,5 +94,6 @@ jobs:
         with:
           java-version: 21
           distribution: 'adopt'
+          
       - name: Build APK
         run: cd android && ./gradlew assembleDebug
