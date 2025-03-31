@@ -11,11 +11,15 @@ export default function Requests() {
     <RootShell>
       <Tabs variant="outline" value={activeTab} onChange={setActiveTab}>
         <Tabs.List grow>
-          <Tabs.Tab value="pr">Published Requests</Tabs.Tab>
-          <Tabs.Tab value="rq">Request Quotations</Tabs.Tab>
+          <Tabs.Tab value="ri">Inbox</Tabs.Tab>
+          <Tabs.Tab value="pr">Requests</Tabs.Tab>
+          <Tabs.Tab value="rq">Quotations</Tabs.Tab>
         </Tabs.List>
 
         <ScrollArea h="calc(100vh - 216px)" mt="xs" type="never">
+          <Tabs.Panel value="ri">
+            <PublishedRequests />
+          </Tabs.Panel>
           <Tabs.Panel value="pr">
             <PublishedRequests />
           </Tabs.Panel>

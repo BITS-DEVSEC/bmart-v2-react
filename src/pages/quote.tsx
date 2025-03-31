@@ -11,7 +11,7 @@ import {
   SimpleGrid,
 } from "@mantine/core";
 import { RootShell } from "../components/layout/shell/root";
-import { BoxIcon, PlusIcon } from "lucide-react";
+import { BoxIcon, PlusIcon, SendIcon } from "lucide-react";
 import CustomButton from "../components/ui/button";
 
 const images = [
@@ -81,7 +81,7 @@ export default function PlaceQoute() {
         gap={8}
         style={{ position: "absolute", bottom: 10, right: 15, left: 15 }}
       >
-        <CustomButton label="Submit" ltr altSize />
+        <CustomButton icon={<SendIcon size={18} />} label="Submit" ltr altSize />
       </Group>
     </RootShell>
   );

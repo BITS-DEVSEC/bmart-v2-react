@@ -16,7 +16,6 @@ import Logo from "../../../assets/imageClear.png";
 import {
   HelpCircle,
   LucideLogOut,
-  MailQuestion,
   Package2Icon,
   PackageCheck,
   ShoppingBag,
@@ -67,7 +66,7 @@ export function RootShell({
       <AppShell.Header withBorder={false}>
         <Container size="480" h="100%">
           <Flex align="center" h="100%" justify="space-between">
-            <Image w={100} h={35} src={Logo} alt="logo" />
+            <Image style={{ cursor: "pointer" }} onClick={() => navigate("/")} w={100} h={35} src={Logo} alt="logo" />
             <Menu shadow="md" width={150}>
               <Menu.Target>
                 <ActionIcon variant="transparent" size="lg">
@@ -84,10 +83,7 @@ export function RootShell({
                 >
                   Profile
                 </Menu.Item>
-                <Menu.Item rightSection={<MailQuestion size={16} />}>
-                  Support
-                </Menu.Item>
-                <Menu.Item rightSection={<HelpCircle size={16} />}>
+                <Menu.Item onClick={() => navigate("/faq")} rightSection={<HelpCircle size={16} />}>
                   FAQ
                 </Menu.Item>
                 <Menu.Item

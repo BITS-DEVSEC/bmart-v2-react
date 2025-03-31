@@ -60,6 +60,7 @@ export default function ProductCards({ alt }: { alt?: boolean }) {
           slideGap="xs"
           withControls={false}
           withIndicators
+          loop
         >
           {images.map((image, index) => (
             <Carousel.Slide style={{ borderRadius: 10 }} key={image}>

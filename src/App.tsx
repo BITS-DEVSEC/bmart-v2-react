@@ -13,6 +13,7 @@ import Requests from "./pages/requests";
 import Orders from "./pages/orders";
 import Deliveries from "./pages/dorders";
 import PlaceQoute from "./pages/quote";
+import Faq from "./pages/faq";
 
 export default function App() {
   return (
@@ -31,8 +32,8 @@ export default function App() {
         <Route path="/requests" element={<Requests />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/deliveries" element={<Deliveries />} />
-        <Route path="/" element={<Root />} />
         <Route path="/product/:id/quote" element={<PlaceQoute />} />
+        <Route path="/faq" element={<Faq />} />
       </Routes>
     </BrowserRouter>
   );

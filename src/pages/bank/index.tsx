@@ -6,6 +6,7 @@ import {
   Image,
   Overlay,
   ScrollArea,
+  SegmentedControl,
   Text,
   Title,
 } from "@mantine/core";
@@ -16,7 +17,10 @@ import {
   ArrowRight,
   Banknote,
   ChartArea,
+  ChevronsDown,
+  ChevronsUp,
   Ghost,
+  GitCompareArrows,
 } from "lucide-react";
 import { useDisclosure } from "@mantine/hooks";
 import CustomButton from "../../components/ui/button";
@@ -30,14 +34,18 @@ export default function BankPage() {
   const [statusOpened, { toggle: toggleStatus }] = useDisclosure();
 
   useEffect(() => {
-    if(drOpen){
-      toggleDr()
+    if (drOpen) {
+      toggleDr();
     }
-  }, [statusOpened])
+  }, [statusOpened]);
   return (
     <RootShell>
       <TransferStatus opened={statusOpened} toggle={toggleStatus} />
-      <DirectTransfer opened={drOpen} toggle={toggleDr} toggleStatus={toggleStatus} />
+      <DirectTransfer
+        opened={drOpen}
+        toggle={toggleDr}
+        toggleStatus={toggleStatus}
+      />
       <Card radius="md" withBorder h={200} shadow="sm">
         <Overlay
           blur={10}
@@ -97,10 +105,48 @@ export default function BankPage() {
         icon={<Banknote size={20} />}
       />
       <Flex align="center" justify="space-between" my="sm">
-        <Title order={5}>Transactions</Title>
+        <Title order={5}>Recent Transactions</Title>
         <ChartArea size={20} />
       </Flex>
-      <ScrollArea style={{ borderRadius: 5 }} mt="sm" h="calc(100vh - 480px)">
+      <SegmentedControl
+        fullWidth
+        data={[
+          {
+            label: (
+              <Flex p={2} gap={5} align="center">
+                <GitCompareArrows size={18} />{" "}
+                <Text fw={700} size="xs">
+                  TRANSFER
+                </Text>
+              </Flex>
+            ),
+            value: "transfer",
+          },
+          {
+            label: (
+              <Flex p={2} gap={5} align="center">
+                <ChevronsUp size={18} />{" "}
+                <Text fw={700} size="xs">
+                  PAYMENT
+                </Text>
+              </Flex>
+            ),
+            value: "payment",
+          },
+          {
+            label: (
+              <Flex p={2} gap={5} align="center">
+                <ChevronsDown size={18} />{" "}
+                <Text fw={700} size="xs">
+                  DEPOSIT
+                </Text>
+              </Flex>
+            ),
+            value: "deposit",
+          },
+        ]}
+      />
+      <ScrollArea style={{ borderRadius: 5 }} mt="sm" h="calc(100vh - 500px)">
         <Flex direction="column" gap={5}>
           {[1, 2, 3, 4, 5, 6, 7].map(() => (
             <Card withBorder>

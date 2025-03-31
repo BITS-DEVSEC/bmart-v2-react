@@ -3,8 +3,6 @@ import {
   Accordion,
   Flex,
   Table,
-  Title,
-  Divider,
 } from "@mantine/core";
 import { PackageCheck } from "lucide-react";
 
