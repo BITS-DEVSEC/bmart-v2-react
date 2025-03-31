@@ -26,7 +26,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Upload node_modules artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: node_modules
           path: node_modules
@@ -38,7 +38,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Download node_modules artifact
-        uses: actions/download-pages-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: node_modules
       - name: Lint
@@ -51,7 +51,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Download node_modules artifact
-        uses: actions/download-pages-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: node_modules
       - name: Build
@@ -64,14 +64,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Download node_modules artifact
-        uses: actions/download-pages-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: node_modules
       - name: Sync
         run: yarn cap sync
 
   apk:
-    needs: setup
+    needs: 
+      - setup
+      - lint
+      - build
+      - sync
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
