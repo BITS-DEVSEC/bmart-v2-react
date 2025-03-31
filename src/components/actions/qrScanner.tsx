@@ -12,10 +12,14 @@ const QRScanner = ({ size }: { size: "input-md" | "sm" }) => {
   const [isCameraReady, setIsCameraReady] = useState(false);
 
   useEffect(() => {
-    setIsCameraReady(false);
-    setInterval(() => {
-      setIsCameraReady(true);
-    }, 8000);
+    if (opened) {
+      setIsCameraReady(false);
+      setInterval(() => {
+        setIsCameraReady(true);
+      }, 4000);
+    } else {
+      setIsCameraReady(false)
+    }
   }, [opened]);
 
   return (
@@ -69,7 +73,7 @@ const QRScanner = ({ size }: { size: "input-md" | "sm" }) => {
         loading={opened}
         style={{ display: platform === "web" ? "none" : "block" }}
         size={size}
-        variant="light"
+        variant="default"
         color="primary"
         onClick={open}
         disabled={opened}

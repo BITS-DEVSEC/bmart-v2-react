@@ -12,10 +12,12 @@ import { Search, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router";
 import QRScanner from "../components/actions/qrScanner";
 import { Capacitor } from "@capacitor/core";
+import { useState } from "react";
 
 export default function Root() {
   const navigate = useNavigate();
   const platform = Capacitor.getPlatform();
+  const [pageState, setPageState] = useState<string>('BUY')
 
   return (
     <RootShell>
@@ -35,7 +37,7 @@ export default function Root() {
             <ActionIcon
               onClick={() => navigate("/cart")}
               size="input-md"
-              variant="light"
+              variant="default"
             >
               <ShoppingCart size={25} />
             </ActionIcon>
@@ -50,11 +52,13 @@ export default function Root() {
         color="primary"
         size="sm"
         radius="md"
+        value={pageState}
+        onChange={(value: string) => setPageState(value)}
         data={["BUY", "SELL"]}
       />
       <ScrollArea type="never" h="calc(100vh - 272px)">
         {[1, 2, 3, 4].map(() => (
-          <ProductCards />
+          <ProductCards alt={pageState == 'SELL'} />
         ))}
       </ScrollArea>
     </RootShell>

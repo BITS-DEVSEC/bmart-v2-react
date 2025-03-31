@@ -29,8 +29,8 @@ import { useEffect, useState } from "react";
 import { BackButtonHandler } from "../../actions/backButton";
 import { usePullToRefresh } from "use-pull-to-refresh";
 
-const MAXIMUM_PULL_LENGTH = 380;
-const REFRESH_THRESHOLD = 100;
+const MAXIMUM_PULL_LENGTH = 500;
+const REFRESH_THRESHOLD = 280;
 
 export function RootShell({
   children,

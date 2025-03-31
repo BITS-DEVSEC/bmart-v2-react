@@ -1,9 +1,13 @@
-import { ShoppingCart } from "lucide-react";
+import {
+  ChevronsRightIcon,
+  ShoppingCart,
+} from "lucide-react";
 import { Carousel } from "@mantine/carousel";
 import {
   ActionIcon,
   Box,
   Card,
+  Center,
   Drawer,
   Group,
   Image,
@@ -12,6 +16,7 @@ import {
 } from "@mantine/core";
 import classes from "./productCards.module.css";
 import { useDisclosure } from "@mantine/hooks";
+import CustomButton from "../button";
 
 const images = [
   "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
@@ -21,7 +26,7 @@ const images = [
   "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
 ];
 
-export default function ProductCards() {
+export default function ProductCards({ alt }: { alt?: boolean }) {
   const [opened, { toggle }] = useDisclosure();
   const slides = images.map((image) => (
     <Carousel.Slide key={image}>
@@ -32,7 +37,7 @@ export default function ProductCards() {
   return (
     <>
       <Drawer
-        title={<Title order={3}>Forde, Norway</Title>}
+        title={<Title order={4}>Forde, Norway</Title>}
         opened={opened}
         onClose={toggle}
       >
@@ -42,16 +47,23 @@ export default function ProductCards() {
           mountain range of Blegja and the Førdefjord.
         </Text>
         <Carousel
-          slideSize="100%"
-          height={580}
+          style={{ borderRadius: 10 }}
+          slideSize="90%"
+          height={"75vh"}
           align="center"
           orientation="vertical"
           slideGap="sm"
           withControls={false}
+          withIndicators
         >
-          {images.map((image) => (
-            <Carousel.Slide key={image}>
-              <Image src={image} height={580} />
+          {images.map((image, index) => (
+            <Carousel.Slide style={{ borderRadius: 10 }} key={image}>
+              <Card withBorder shadow="sm" p={0} bg="white" style={{position: "absolute" , top: 10, right: 10}} h={30} w={30}>
+                <Center h={30} >
+                  <Text fw={700} size="xs">{index + 1}</Text>
+                </Center>
+              </Card>
+              <Image style={{ borderRadius: 10, height: "70vh" }} src={image} />
             </Carousel.Slide>
           ))}
         </Carousel>
@@ -75,7 +87,7 @@ export default function ProductCards() {
           mountain range of Blegja and the Førdefjord.
         </Text>
 
-        <Group justify="space-between" mt="md">
+        <Group display={alt ? "none" : "block"} justify="space-between" mt="md">
           <div>
             <Text fz="xl" span fw={500} className={classes.price}>
               397 ETB
@@ -96,6 +108,16 @@ export default function ProductCards() {
             </ActionIcon>
           </Box>
         </Group>
+        {alt && (
+          <CustomButton
+            icon={<ChevronsRightIcon size={20} />}
+            props={{ mt: "md" }}
+            ltr
+            altSize
+            altColor
+            label="Place Quote"
+          />
+        )}
       </Card>
     </>
   );
