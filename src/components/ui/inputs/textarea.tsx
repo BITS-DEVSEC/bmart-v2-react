@@ -1,5 +1,5 @@
-import { Textarea } from "@mantine/core";
-import { inputStyles } from "./inputStyles";
+import { Text, Textarea } from "@mantine/core";
+import { inputStylesAlt } from "./inputStyles";
 
 export function ContainedInputAreas({
   label,
@@ -13,6 +13,7 @@ export function ContainedInputAreas({
   minr,
   override = false,
   mutator,
+  lim,
 }: {
   label: string;
   placeholder: string;
@@ -25,10 +26,12 @@ export function ContainedInputAreas({
   value?: string;
   override?: boolean;
   mutator?: (value: string) => void;
+  lim?: boolean;
 }) {
   return (
     <>
       <Textarea
+        maxLength={100}
         value={value}
         autosize
         minRows={minr || 1}
@@ -43,8 +46,9 @@ export function ContainedInputAreas({
         ml={ml}
         label={label}
         placeholder={placeholder}
-        styles={inputStyles}
+        styles={inputStylesAlt}
       />
+      {lim && <Text size="xs" mt={5} c="dimmed">Maximum of 100 characters are allowed</Text>}
     </>
   );
 }

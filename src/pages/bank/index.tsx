@@ -21,13 +21,23 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import CustomButton from "../../components/ui/button";
 import DirectTransfer from "./directTransfers";
+import TransferStatus from "./transferStatus";
+import { useEffect } from "react";
 
 export default function BankPage() {
   const [opened, { toggle }] = useDisclosure(false);
   const [drOpen, { toggle: toggleDr }] = useDisclosure(false);
+  const [statusOpened, { toggle: toggleStatus }] = useDisclosure();
+
+  useEffect(() => {
+    if(drOpen){
+      toggleDr()
+    }
+  }, [statusOpened])
   return (
     <RootShell>
-      <DirectTransfer opened={drOpen} toggle={toggleDr} />
+      <TransferStatus opened={statusOpened} toggle={toggleStatus} />
+      <DirectTransfer opened={drOpen} toggle={toggleDr} toggleStatus={toggleStatus} />
       <Card radius="md" withBorder h={200} shadow="sm">
         <Overlay
           blur={10}
