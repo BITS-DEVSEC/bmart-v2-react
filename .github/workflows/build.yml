@@ -12,8 +12,6 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
-    outputs:
-      # (Optional) If you need to pass outputs to later jobs
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
