@@ -43,12 +43,6 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-
-      - name: Download node_modules artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: node_modules
-
       - name: Build
         run: yarn build
 
@@ -69,11 +63,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-
-      - name: Download node_modules artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: node_modules
 
       - name: Sync
         run: yarn cap sync
