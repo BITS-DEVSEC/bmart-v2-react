@@ -42,7 +42,7 @@ export default function CartCards() {
               <ActionIcon color="orange" variant="light">
                 <MinusCircle size={16}  />
               </ActionIcon>
-              <Text mt={4} size="sm">2</Text>
+              <Text mt={1} size="sm">2</Text>
               <ActionIcon color="green" variant="light">
                 <PlusCircle size={16}  />
               </ActionIcon>

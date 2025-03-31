@@ -90,14 +90,6 @@ export function PublishedRequests() {
           </Table.Thead>
           <Table.Tbody>{rows}</Table.Tbody>
         </Table>
-        <Divider my="xs" />
-        <Flex px="xs" style={{ width: "100%" }} justify="space-between">
-          <Title order={5}>Total</Title>
-          <Text>
-            {products.reduce((total, product) => total + product.quantity, 0)}{" "}
-          </Text>
-        </Flex>
-        <Divider my="xs" />
       </Accordion.Panel>
     </Accordion.Item>
   ));

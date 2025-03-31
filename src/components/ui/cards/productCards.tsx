@@ -19,6 +19,7 @@ import classes from "./productCards.module.css";
 import { useDisclosure } from "@mantine/hooks";
 import CustomButton from "../button";
 import { ContainedInputs } from "../inputs/text";
+import { useNavigate } from "react-router";
 
 const images = [
   "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
@@ -31,6 +32,7 @@ const images = [
 export default function ProductCards({ alt }: { alt?: boolean }) {
   const [opened, { toggle }] = useDisclosure();
   const [openedQuote, { toggle: toggleQuote }] = useDisclosure();
+  const navigate = useNavigate();
   const slides = images.map((image) => (
     <Carousel.Slide key={image}>
       <Image src={image} height={opened ? 580 : 180} />
@@ -52,21 +54,21 @@ export default function ProductCards({ alt }: { alt?: boolean }) {
         <Carousel
           style={{ borderRadius: 10 }}
           slideSize="90%"
-          height={"75vh"}
+          height={"79.5vh"}
           align="center"
           orientation="vertical"
-          slideGap="sm"
+          slideGap="xs"
           withControls={false}
           withIndicators
         >
           {images.map((image, index) => (
             <Carousel.Slide style={{ borderRadius: 10 }} key={image}>
-              <Card withBorder shadow="sm" p={0} bg="white" style={{position: "absolute" , top: 10, right: 10}} h={30} w={30}>
+              <Card withBorder p={0} bg="white" style={{position: "absolute" , top: 0, right: 0}} h={30} w={30}>
                 <Center h={30} >
                   <Text fw={700} size="xs">{index + 1}</Text>
                 </Center>
               </Card>
-              <Image style={{ borderRadius: 10, height: "70vh" }} src={image} />
+              <Image style={{ borderRadius: 10, height: "69vh" }} src={image} />
             </Carousel.Slide>
           ))}
         </Carousel>
@@ -124,7 +126,7 @@ export default function ProductCards({ alt }: { alt?: boolean }) {
             altSize
             altColor
             label="Place Quote"
-            action={toggleQuote}
+            action={() => navigate('/product/1/quote')}
           />
         )}
       </Card>

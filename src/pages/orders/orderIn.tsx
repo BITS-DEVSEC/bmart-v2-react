@@ -51,16 +51,17 @@ interface AccordionLabelProps {
 }
 
 const products = [
-  { name: "Carbon Water Bottle", price: 29.99 },
-  { name: "Nitrogen Infused Face Mask", price: 49.99 },
-  { name: "Yttrium LED Desk Lamp", price: 89.99 },
-  { name: "Barium Home Cleaning Kit", price: 19.99 },
-  { name: "Cerium Polishing Cloth", price: 14.99 },
+  { name: "Carbon Water Bottle", quantity: 2, price: 29.99 },
+  { name: "Nitrogen Infused Face Mask", quantity: 2, price: 49.99 },
+  { name: "Yttrium LED Desk Lamp", quantity: 2, price: 89.99 },
+  { name: "Barium Home Cleaning Kit", quantity: 2, price: 19.99 },
+  { name: "Cerium Polishing Cloth", quantity: 2, price: 14.99 },
 ];
 
 const rows = products.map((element) => (
   <Table.Tr key={element.name}>
     <Table.Td>{element.name}</Table.Td>
+    <Table.Td ta="center">{element.quantity}</Table.Td>
     <Table.Td ta="right">{element.price} ETB</Table.Td>
   </Table.Tr>
 ));
@@ -96,6 +97,7 @@ export function Incoming() {
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Item</Table.Th>
+              <Table.Th>Qty.</Table.Th>
               <Table.Th ta="right">Price</Table.Th>
             </Table.Tr>
           </Table.Thead>

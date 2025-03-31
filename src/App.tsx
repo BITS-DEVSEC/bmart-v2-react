@@ -12,6 +12,7 @@ import Credentials from "./pages/auth/credentials";
 import Requests from "./pages/requests";
 import Orders from "./pages/orders";
 import Deliveries from "./pages/dorders";
+import PlaceQoute from "./pages/quote";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/orders" element={<Orders />} />
         <Route path="/deliveries" element={<Deliveries />} />
         <Route path="/" element={<Root />} />
+        <Route path="/product/:id/quote" element={<PlaceQoute />} />
       </Routes>
     </BrowserRouter>
   );

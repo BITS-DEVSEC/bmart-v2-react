@@ -49,17 +49,18 @@ interface AccordionLabelProps {
 }
 
 const products = [
-  { name: "Carbon Water Bottle", quantity: 3 },
-  { name: "Nitrogen Infused Face Mask", quantity: 2 },
-  { name: "Yttrium LED Desk Lamp", quantity: 1 },
-  { name: "Barium Home Cleaning Kit", quantity: 4 },
-  { name: "Cerium Polishing Cloth", quantity: 5 },
+  { name: "Carbon Water Bottle", quantity: 2, price: 29.99 },
+  { name: "Nitrogen Infused Face Mask", quantity: 2, price: 49.99 },
+  { name: "Yttrium LED Desk Lamp", quantity: 2, price: 89.99 },
+  { name: "Barium Home Cleaning Kit", quantity: 2, price: 19.99 },
+  { name: "Cerium Polishing Cloth", quantity: 2, price: 14.99 },
 ];
 
 const rows = products.map((element) => (
   <Table.Tr key={element.name}>
     <Table.Td>{element.name}</Table.Td>
-    <Table.Td ta="right">{element.quantity}</Table.Td>
+    <Table.Td ta="center">{element.quantity}</Table.Td>
+    <Table.Td ta="right">{element.price} ETB</Table.Td>
   </Table.Tr>
 ));
 
@@ -91,6 +92,7 @@ export function Outgoing() {
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Item</Table.Th>
+              <Table.Th>Qty.</Table.Th>
               <Table.Th ta="right">Price</Table.Th>
             </Table.Tr>
           </Table.Thead>
@@ -100,12 +102,21 @@ export function Outgoing() {
         <Flex px="xs" style={{ width: "100%" }} justify="space-between">
           <Title order={5}>Total</Title>
           <Text>
-            {products.reduce((total, product) => total + product.quantity, 0)}{" "}
+            {products
+              .reduce((total, product) => total + product.price, 0)
+              ?.toFixed(2)}{" "}
+            ETB
           </Text>
         </Flex>
         <Divider my="xs" />
         <Flex direction="column" gap={10}>
-          <CustomButton action={toggle} altSize label="Request Delivery" ltr icon={<Truck />} />
+          <CustomButton
+            action={toggle}
+            altSize
+            label="Request Delivery"
+            ltr
+            icon={<Truck />}
+          />
         </Flex>
       </Accordion.Panel>
     </Accordion.Item>
