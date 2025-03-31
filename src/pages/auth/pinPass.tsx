@@ -114,14 +114,14 @@ export default function PinPass() {
                   display: "inline-block",
                   backgroundColor: "transparent",
                 }}
-                onTouchStart={(e: any) => {
-                  e.target.style.transform = "scale(0.78)";
+                onTouchStart={(e: React.TouchEvent<HTMLButtonElement>) => {
+                  (e.currentTarget as HTMLButtonElement).style.transform = "scale(0.78)";
                 }}
-                onTouchEnd={(e: any) => {
-                  e.target.style.transform = "scale(1)";
+                onTouchEnd={(e: React.TouchEvent<HTMLButtonElement>) => {
+                  (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
                 }}
-                onTouchCancel={(e: any) => {
-                  e.target.style.transform = "scale(1)";
+                onTouchCancel={(e: React.TouchEvent<HTMLButtonElement>) => {
+                  (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
                 }}
                 key={index}
                 onClick={() => {

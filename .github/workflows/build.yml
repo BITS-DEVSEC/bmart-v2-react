@@ -4,11 +4,16 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  ci:
+  setup:
     runs-on: ubuntu-latest
+    outputs:
+      # (Optional) If you need to pass outputs to later jobs
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -28,14 +33,38 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+  lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Lint
         run: yarn lint
 
+  build:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Build
         run: yarn build
 
+  sync:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Sync
         run: yarn cap sync
 
+  apk:
+    needs: sync
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Build APK
         run: cd android && ./gradlew assembleDebug
