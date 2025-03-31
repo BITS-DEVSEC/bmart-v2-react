@@ -1,12 +1,14 @@
 import { Modal, Title, Table, Flex, Card } from "@mantine/core";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, XCircle } from "lucide-react";
 
 export default function TransferStatus({
   opened,
   toggle,
+  status,
 }: {
   opened: boolean;
   toggle: () => void;
+  status?: boolean;
 }) {
   return (
     <Modal
@@ -22,25 +24,33 @@ export default function TransferStatus({
     >
       <Card withBorder p="xl">
         <Flex justify="center" align="center" direction="column">
-          <CheckCircle2 color="green" size={80} />
+          {status ? (
+            <CheckCircle2 color="green" size={80} />
+          ) : (
+            <XCircle color="red" size={80} />
+          )}
           <Title mt="md" order={2}>
             2045.76 ETB
           </Title>
         </Flex>
       </Card>
-      <Table mt="xs">
+      <Table mt="xs" withTableBorder>
         <Table.Tbody>
           <Table.Tr>
             <Table.Td fw={700}>From</Table.Td>
-            <Table.Td align="right">BB 01-0002-23</Table.Td>
+            <Table.Td align="right">
+              <span style={{ color: "orange" }}>BB 01-0002-23</span>
+            </Table.Td>
           </Table.Tr>
           <Table.Tr>
             <Table.Td fw={700}>To</Table.Td>
-            <Table.Td align="right">BB 01-0001-23</Table.Td>
+            <Table.Td align="right">
+              <span style={{ color: "green" }}>BB 01-0001-23</span>
+            </Table.Td>
           </Table.Tr>
           <Table.Tr>
             <Table.Td fw={700}>Amount</Table.Td>
-            <Table.Td align="right">200</Table.Td>
+            <Table.Td align="right">2045.76 ETB</Table.Td>
           </Table.Tr>
           <Table.Tr>
             <Table.Td fw={700}>Remark</Table.Td>

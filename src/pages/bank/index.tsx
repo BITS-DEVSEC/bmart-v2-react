@@ -108,7 +108,7 @@ export default function BankPage() {
                 <Flex direction="column">
                   <Flex gap={2} align="center">
                     <ArrowLeft color="red" size={15} />
-                    <Text c="red" size="xs">
+                    <Text c="orange" size="xs">
                       BB 01-2312-09
                     </Text>
                   </Flex>

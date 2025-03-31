@@ -133,7 +133,7 @@ export function Incoming() {
 
   return (
     <>
-      <TransferStatus opened={statusOpened} toggle={toggleStatus} />
+      <TransferStatus status opened={statusOpened} toggle={toggleStatus} />
       <Modal
         title={<Title order={5}>PAY</Title>}
         opened={opened}
