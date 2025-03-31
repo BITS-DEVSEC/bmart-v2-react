@@ -5,7 +5,6 @@ import {
   Flex,
   Group,
   Text,
-  TextInput,
 } from "@mantine/core";
 import classes from "./cc.module.css";
 import { MinusCircle, PlusCircle, Trash2 } from "lucide-react";

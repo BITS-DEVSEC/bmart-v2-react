@@ -11,12 +11,14 @@ import {
   Drawer,
   Group,
   Image,
+  Modal,
   Text,
   Title,
 } from "@mantine/core";
 import classes from "./productCards.module.css";
 import { useDisclosure } from "@mantine/hooks";
 import CustomButton from "../button";
+import { ContainedInputs } from "../inputs/text";
 
 const images = [
   "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
@@ -28,6 +30,7 @@ const images = [
 
 export default function ProductCards({ alt }: { alt?: boolean }) {
   const [opened, { toggle }] = useDisclosure();
+  const [openedQuote, { toggle: toggleQuote }] = useDisclosure();
   const slides = images.map((image) => (
     <Carousel.Slide key={image}>
       <Image src={image} height={opened ? 580 : 180} />
@@ -68,6 +71,11 @@ export default function ProductCards({ alt }: { alt?: boolean }) {
           ))}
         </Carousel>
       </Drawer>
+      <Modal opened={openedQuote} onClose={toggleQuote} title={<Title order={5}>Forde, Norway</Title>}>
+        <ContainedInputs mb="xs" label="Per Unit Price" placeholder="Per UnitPrice"/>
+        <ContainedInputs mb="xs" label="Quantity" placeholder="Quantity"/>
+        <CustomButton label="Submit Quote"/>
+      </Modal>
       <Card mb="md" radius="md" withBorder padding="md">
         <Card.Section onClick={toggle}>
           <Carousel withControls={false} withIndicators loop={false}>
@@ -116,6 +124,7 @@ export default function ProductCards({ alt }: { alt?: boolean }) {
             altSize
             altColor
             label="Place Quote"
+            action={toggleQuote}
           />
         )}
       </Card>
