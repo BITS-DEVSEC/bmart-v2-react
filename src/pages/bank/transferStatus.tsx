@@ -1,4 +1,4 @@
-import { Modal, Title, Table, Flex } from "@mantine/core";
+import { Modal, Title, Table, Flex, Card } from "@mantine/core";
 import { CheckCircle2 } from "lucide-react";
 
 export default function TransferStatus({
@@ -20,11 +20,15 @@ export default function TransferStatus({
       opened={opened}
       onClose={toggle}
     >
-      <Flex justify="center" align="center" direction="column">
-        <CheckCircle2 color="green" size={80} />
-        <Title mt="md" order={2}>2045.76 ETB</Title>
-      </Flex>
-      <Table mt="xs" >
+      <Card withBorder p="xl">
+        <Flex justify="center" align="center" direction="column">
+          <CheckCircle2 color="green" size={80} />
+          <Title mt="md" order={2}>
+            2045.76 ETB
+          </Title>
+        </Flex>
+      </Card>
+      <Table mt="xs">
         <Table.Tbody>
           <Table.Tr>
             <Table.Td fw={700}>From</Table.Td>
@@ -40,7 +44,9 @@ export default function TransferStatus({
           </Table.Tr>
           <Table.Tr>
             <Table.Td fw={700}>Remark</Table.Td>
-            <Table.Td align="right">Lorem ipsum dolor sit amet consectetur adipisicing elit.</Table.Td>
+            <Table.Td align="right">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </Table.Td>
           </Table.Tr>
         </Table.Tbody>
       </Table>

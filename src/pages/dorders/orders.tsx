@@ -1,13 +1,8 @@
-import {
-  Text,
-  Accordion,
-  Flex,
-  Table,
-  Title,
-  Divider,
-} from "@mantine/core";
+import { Text, Accordion, Flex, Table, Title, Divider } from "@mantine/core";
 import { PackageCheck, Truck } from "lucide-react";
 import CustomButton from "../../components/ui/button";
+import TransferStatus from "../bank/transferStatus";
+import { useDisclosure } from "@mantine/hooks";
 
 const charactersList = [
   {
@@ -76,6 +71,7 @@ function AccordionLabel({ label, description }: AccordionLabelProps) {
 }
 
 export function DOutgoing() {
+  const [opened, { toggle }] = useDisclosure(false);
   const items = charactersList.map((item) => (
     <Accordion.Item value={item.id} key={item.label}>
       <Accordion.Control>
@@ -100,21 +96,22 @@ export function DOutgoing() {
         </Flex>
         <Flex px="xs" style={{ width: "100%" }} justify="space-between">
           <Title order={5}>Delivery Fee</Title>
-          <Text>
-            654.00 ETB
-          </Text>
+          <Text>654.00 ETB</Text>
         </Flex>
         <Divider my="xs" />
         <Flex direction="column" gap={10}>
-          <CustomButton altSize label="Pay" ltr icon={<Truck  />} />
+          <CustomButton action={toggle} altSize label="Pay" ltr icon={<Truck />} />
         </Flex>
       </Accordion.Panel>
     </Accordion.Item>
   ));
 
   return (
-    <Accordion chevronPosition="right" variant="separated">
-      {items}
-    </Accordion>
+    <>
+      <TransferStatus opened={opened} toggle={toggle} />
+      <Accordion chevronPosition="right" variant="separated">
+        {items}
+      </Accordion>
+    </>
   );
 }

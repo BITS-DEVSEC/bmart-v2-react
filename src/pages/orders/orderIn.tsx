@@ -11,8 +11,9 @@ import { Check, PackageCheck } from "lucide-react";
 import CustomButton from "../../components/ui/button";
 import { useDisclosure } from "@mantine/hooks";
 import { ContainedSelect } from "../../components/ui/inputs/select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ContainedInputs } from "../../components/ui/inputs/text";
+import TransferStatus from "../bank/transferStatus";
 
 const charactersList = [
   {
@@ -82,6 +83,7 @@ function AccordionLabel({ label, description }: AccordionLabelProps) {
 
 export function Incoming() {
   const [opened, { toggle }] = useDisclosure(false);
+  const [statusOpened, { toggle: toggleStatus }] = useDisclosure(false);
   const [type, setType] = useState<string | null>("");
 
   const items = charactersList.map((item) => (
@@ -123,8 +125,15 @@ export function Incoming() {
     </Accordion.Item>
   ));
 
+  useEffect(() => {
+    if (opened) {
+      toggle();
+    }
+  }, [statusOpened]);
+
   return (
     <>
+      <TransferStatus opened={statusOpened} toggle={toggleStatus} />
       <Modal
         title={<Title order={5}>PAY</Title>}
         opened={opened}
@@ -141,7 +150,7 @@ export function Incoming() {
           <ContainedInputs mt="xs" label="Amount" placeholder="Enter amount" />
         )}
         <CustomButton
-          action={toggle}
+          action={toggleStatus}
           props={{ mt: "xs" }}
           label="Complete"
           ltr
