@@ -10,9 +10,15 @@ import { KeyRound, LockIcon } from "lucide-react";
 import { useNavigate } from "react-router";
 import { ContainedInputs } from "../../components/ui/inputs/text";
 import CustomButton from "../../components/ui/button";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 export default function Login() {
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.user);
+
+  console.log(user);
+  
 
   return (
     <Box>

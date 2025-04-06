@@ -34,9 +34,11 @@ const REFRESH_THRESHOLD = 280;
 export function RootShell({
   children,
   noFoot,
+  refresh,
 }: {
   children: React.ReactNode;
   noFoot?: boolean;
+  refresh?: () => void;
 }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,10 +46,8 @@ export function RootShell({
   const [activePath, setActivePath] = useState("/");
   const [triggerRoute, setTriggerRoute] = useState("");
 
-  const reload = () => {
-    setTimeout(() => {
-      console.log("hh");
-    }, 120);
+  const reload = async () => {
+    await refresh?.();
   };
 
   const { isRefreshing } = usePullToRefresh({
@@ -66,7 +66,14 @@ export function RootShell({
       <AppShell.Header withBorder={false}>
         <Container size="480" h="100%">
           <Flex align="center" h="100%" justify="space-between">
-            <Image style={{ cursor: "pointer" }} onClick={() => navigate("/")} w={100} h={35} src={Logo} alt="logo" />
+            <Image
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/")}
+              w={100}
+              h={35}
+              src={Logo}
+              alt="logo"
+            />
             <Menu shadow="md" width={150}>
               <Menu.Target>
                 <ActionIcon variant="transparent" size="lg">
@@ -83,7 +90,10 @@ export function RootShell({
                 >
                   Profile
                 </Menu.Item>
-                <Menu.Item onClick={() => navigate("/faq")} rightSection={<HelpCircle size={16} />}>
+                <Menu.Item
+                  onClick={() => navigate("/faq")}
+                  rightSection={<HelpCircle size={16} />}
+                >
                   FAQ
                 </Menu.Item>
                 <Menu.Item

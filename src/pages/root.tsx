@@ -1,26 +1,36 @@
 import {
   ActionIcon,
+  Button,
   Flex,
   Indicator,
+  LoadingOverlay,
   ScrollArea,
   SegmentedControl,
+  Text,
   TextInput,
 } from "@mantine/core";
 import { RootShell } from "../components/layout/shell/root";
 import ProductCards from "../components/ui/cards/productCards";
-import { Search, ShoppingCart } from "lucide-react";
+import { BoxIcon, InfoIcon, Search, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router";
 import QRScanner from "../components/actions/qrScanner";
 import { Capacitor } from "@capacitor/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLazyGetProductsQuery } from "../store/api/products";
 
 export default function Root() {
   const navigate = useNavigate();
   const platform = Capacitor.getPlatform();
-  const [pageState, setPageState] = useState<string>('BUY')
+  const [pageState, setPageState] = useState<string>("BUY");
+  const [ getProducts, {isLoading, error, data: products} ] = useLazyGetProductsQuery();
+
+  useEffect(() => {
+    getProducts();
+  }, [pageState]);
 
   return (
-    <RootShell>
+    <RootShell refresh={getProducts}>
+      <LoadingOverlay visible={isLoading} />
       <Flex mb="xs" align="center" gap="sm">
         <TextInput
           onFocus={() => {
@@ -57,8 +67,25 @@ export default function Root() {
         data={["BUY", "SELL"]}
       />
       <ScrollArea type="never" h="calc(100vh - 272px)">
-        {[1, 2, 3, 4].map(() => (
-          <ProductCards alt={pageState == 'SELL'} />
+        {error && (
+          <Flex mt="xl" direction="column" align="center">
+            <InfoIcon color="red" size={55} />
+            <Text mt="sm" ta="center" size="sm" c="red">
+              Failed to fetch products!
+            </Text>
+            <Button loading={isLoading} onClick={() => getProducts()} size="xs" mt="sm">Try Again</Button>
+          </Flex>
+        )}
+        {products?.data?.length == 0 && (
+          <Flex mt="xl" direction="column" align="center">
+            <BoxIcon color="gray" size={55} />
+            <Text mt="sm" ta="center" size="sm" c="dimmed">
+              No products found!
+            </Text>
+          </Flex>
+        )}
+        {products?.data?.map((product: { id: number }) => (
+          <ProductCards alt={pageState == "SELL"} key={product.id} />
         ))}
       </ScrollArea>
     </RootShell>

@@ -5,12 +5,15 @@ import {
 } from "@mantine/core";
 import { createRoot } from "react-dom/client";
 import { Notifications } from "@mantine/notifications";
+import { Provider } from "react-redux";
+import { store } from "./store/store.ts";
 import App from "./App.tsx";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/dropzone/styles.css";
 import "@mantine/carousel/styles.css";
 import "@mantine/dates/styles.css";
+
 
 const base: MantineColorsTuple = [
   "#fbefef",
@@ -36,6 +39,8 @@ const theme = createTheme({
 createRoot(document.getElementById("root")!).render(
   <MantineProvider defaultColorScheme="light" theme={theme}>
     <Notifications />
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </MantineProvider>
 );

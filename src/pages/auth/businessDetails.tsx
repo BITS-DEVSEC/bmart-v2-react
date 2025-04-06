@@ -1,16 +1,16 @@
 import { Container, Box, Flex, Title, Group, Text } from "@mantine/core";
-import { ChevronsLeftIcon, ChevronsRightIcon, IdCardIcon } from "lucide-react";
-import { ContainedInputs } from "../../components/ui/inputs/text";
+import { CheckIcon, ChevronsLeftIcon, IdCardIcon } from "lucide-react";
 import CustomButton from "../../components/ui/button";
 import { useNavigate } from "react-router";
-import { ContainedSelect } from "../../components/ui/inputs/select";
-import { ContainedDates } from "../../components/ui/inputs/date";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { setUser } from "../../store/state/user";
+import { ContainedInputs } from "../../components/ui/inputs/text";
 
-export default function PersonalDetails() {
+export default function BusinessDetails() {
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
 
   return (
     <Box>
@@ -43,7 +43,7 @@ export default function PersonalDetails() {
               <Flex direction="column">
                 <Title order={4}>Your FAYDA Information</Title>
                 <Text size="xs" c="dimmed">
-                  PERSONAL DETAILS
+                  BUSINESS DETAILS
                 </Text>
               </Flex>
               <Flex justify="flex-end">
@@ -51,53 +51,34 @@ export default function PersonalDetails() {
               </Flex>
             </Group>
             {[
-              { title: "Full Name", placeholder: "Enter your full name" },
-              { title: "Phone Number", placeholder: "Enter your phone number" },
+              { title: "Business Name", placeholder: "Business Name" },
+              { title: "Tax Identification Number (TIN)", placeholder: "Tax Identification Number" },
             ].map((item, index) => (
               <ContainedInputs
-                value={index == 0 ? user.fullName : user.phoneNumber}
+                value={index == 0 ? user.businessName : user.tinNumber}
                 mt="xs"
                 key={index}
                 label={item.title}
                 placeholder={item.placeholder}
+                override
+                mutator={
+                  (value: string) => {
+                    dispatch(setUser({ ...user, [item.title]: value }));
+                  }
+                }
               />
             ))}
-            <Group grow justify="space-between">
-              {[
-                { title: "Gender", placeholder: "Gender", data: ["Male", "Female"] },
-                {
-                  title: "Nationality",
-                  placeholder: "Nationality",
-                  data: ["Ethiopian", "Other"]
-                },
-              ].map((item, index) => (
-                <ContainedSelect
-                  value={index == 0 ? user.gender : user.nationality}
-                  data={item.data}
-                  mt="xs"
-                  key={index}
-                  label={item.title}
-                  placeholder={item.placeholder}
-                />
-              ))}
-            </Group>
-            <ContainedDates
-              value={user.dateofbirth ? new Date(user.dateofbirth) : undefined}
-              mt="xs"
-              label="Date of Birth"
-              placeholder="Enter your date of birth"
-            />
           </Box>
           <Flex direction="column" gap={10}>
             <CustomButton
-              action={() => navigate("/auth/address-details")}
-              icon={<ChevronsRightIcon size={20} />}
+              action={() => navigate("/auth/credentials")}
+              icon={<CheckIcon size={20} />}
               ltr
               label="Continue"
             />
             <CustomButton
               altColor
-              action={() => navigate("/auth")}
+              action={() => navigate("/auth/address-details")}
               icon={<ChevronsLeftIcon size={20} />}
               rtl
               label="Back"

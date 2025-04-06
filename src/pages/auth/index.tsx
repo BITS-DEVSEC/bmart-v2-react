@@ -1,14 +1,34 @@
-import { Container, Box, Flex, Title } from "@mantine/core";
+import { Container, Box, Flex, Title, LoadingOverlay } from "@mantine/core";
 import { ChevronsRightIcon, Globe } from "lucide-react";
 import CustomButton from "../../components/ui/button";
 import { useNavigate } from "react-router";
 import { ContainedInputs } from "../../components/ui/inputs/text";
+import { useEffect, useState } from "react";
+import { useLazyGetUserByIdQuery } from "../../store/api/fayda";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/state/user";
+import { FaydaSchema } from "../../store/schema";
 
 export default function Auth() {
   const navigate = useNavigate();
+  const [faydaId, setFaydaId] = useState("");
+  const [getUserById, { data, isLoading }] = useLazyGetUserByIdQuery();
+  const dispatch = useDispatch();
+
+  const register = async (data: FaydaSchema) => {
+    dispatch(setUser(data));
+    navigate("/auth/personal-details");
+  };
+
+  useEffect(() => {
+    if (data) {
+      register(data);
+    }
+  }, [data]);
 
   return (
     <Box>
+      <LoadingOverlay visible={isLoading} />
       <Box miw={"100%"} mih={"50vh"} bg="primary">
         <Box
           bg="primary.8"
@@ -41,11 +61,13 @@ export default function Auth() {
               mt="sm"
               label="Enter you FAYDA (FAN) Identification Number"
               placeholder="1234 5678 9012 3456"
+              setValue={setFaydaId}
+              value={faydaId}
             />
           </Box>
           <Flex direction="column" gap={10}>
             <CustomButton
-              action={() => navigate("/auth/personal-details")}
+              action={() => getUserById(Number(faydaId))}
               icon={<ChevronsRightIcon size={20} />}
               ltr
               label="Continue"
